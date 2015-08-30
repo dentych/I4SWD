@@ -12,7 +12,7 @@ namespace CardGame
 
         public Deck() { }
 
-        public void DealToPlayer(Player player, int amountofcards = 1)
+        public void DealToPlayer(IPlayer player, int amountofcards = 1)
         {
             if (amountofcards < 1) throw new Exception("Amount of cards must be greater than 0!");
 

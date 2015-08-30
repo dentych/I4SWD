@@ -15,17 +15,17 @@ namespace CardGame
             get { return currentPlayer; }
             set { currentPlayer = (++currentPlayer) % 4; }
         }
-        List<Player> players = new List<Player>();
+        List<IPlayer> players = new List<IPlayer>();
         Deck deck = new Deck();
 
-        public void NewPlayer(string name)
+        public void NewPlayer(IPlayer player)
         {
-            players.Add(new Player(name));
+            players.Add(player);
         }
 
         public void DealCardToAllPlayers(int amount = 1)
         {
-            foreach (Player p in players)
+            foreach (IPlayer p in players)
             {
                 deck.DealToPlayer(p, amount);
             }
@@ -39,7 +39,7 @@ namespace CardGame
 
         public void PlayersShowHands()
         {
-            foreach (Player p in players)
+            foreach (IPlayer p in players)
             {
                 p.ShowHand();
             }
@@ -47,10 +47,10 @@ namespace CardGame
 
         public void AnnounceWinner()
         {
-            Player highscorePlayer = null;
+            IPlayer highscorePlayer = null;
             int bestScore = 0;
 
-            foreach (Player p in players)
+            foreach (IPlayer p in players)
             {
                 int score = p.TotalValue();
                 if (score > bestScore)

@@ -61,6 +61,11 @@ namespace CardGame
         List<Card> cards = new List<Card>();
         public string Name { get; set; }
 
+        public WeakPlayer(string name)
+        {
+            Name = name;
+        }
+
         public void DealCard(Card card)
         {
             cards.Add(card);
