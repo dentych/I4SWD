@@ -11,7 +11,7 @@ namespace CardGame
         /**
         \brief Card's number.
         */
-        int Number { get; set; }
+        int Number { get; }
 
         /**
         \brief Card's value based on the card's number and modifier.
@@ -33,7 +33,7 @@ namespace CardGame
             Number = cardValue; // Can be numbers 1-8, 9 is exclusive.
         }
 
-        public int Number { get; set; }
+        public int Number { get; private set; }
         public int Value
         {
             get { return Number * modifier; }
@@ -48,7 +48,7 @@ namespace CardGame
         
         public override string CardName
         {
-            get { return "Red " + Number.ToString(); }
+            get { return "Red\t" + Number.ToString() + " (" + Value + ")"; }
         }
     }
 
@@ -58,7 +58,7 @@ namespace CardGame
 
         public override string CardName
         {
-            get { return "Blue " + Number.ToString(); }
+            get { return "Blue\t" + Number.ToString() + " (" + Value + ")"; }
         }
     }
 
@@ -68,7 +68,7 @@ namespace CardGame
 
         public override string CardName
         {
-            get { return "Green " + Number.ToString(); }
+            get { return "Green\t" + Number.ToString() + " (" + Value + ")"; }
         }
     }
 
@@ -78,7 +78,17 @@ namespace CardGame
 
         public override string CardName
         {
-            get { return "Yellow " + Number.ToString(); }
+            get { return "Yellow\t" + Number.ToString() + " (" + Value + ")"; }
+        }
+    }
+
+    public class GoldCard : Card
+    {
+        public GoldCard(int value) : base(value) { modifier = 5; }
+
+        public override string CardName
+        {
+            get { return "Gold\t" + Number.ToString() + " (" + Value + ")"; }
         }
     }
 }

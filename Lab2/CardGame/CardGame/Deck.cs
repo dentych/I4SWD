@@ -11,6 +11,7 @@ namespace CardGame
         List<Card> cards = new List<Card>();
 
         public Deck() {
+            Console.WriteLine("Generating deck of cards.");
             GenerateDeck();
             PrintDeck();
         }
@@ -63,6 +64,8 @@ namespace CardGame
                     return new GreenCard(value);
                 case 3:
                     return new YellowCard(value);
+                case 4:
+                    return new GoldCard(value);
                 default:
                     return null;
             }
