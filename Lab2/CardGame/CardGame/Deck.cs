@@ -10,43 +10,62 @@ namespace CardGame
     {
         List<Card> cards = new List<Card>();
 
-        public Deck() { }
+        public Deck() {
+            GenerateDeck();
+            PrintDeck();
+        }
 
         public void DealToPlayer(IPlayer player, int amountofcards = 1)
         {
-            if (amountofcards < 1) throw new Exception("Amount of cards must be greater than 0!");
-
-            if (amountofcards > 1)
+            Random rand = new Random();
+            
+            for (int i = 0; i < amountofcards; i++)
             {
-                for (int i = 0; i < amountofcards; i++)
-                {
-                    player.DealCard(GenerateCard());
-                }
-            }
-            else
-            {
-                player.DealCard(GenerateCard());
+                int index = rand.Next(0, cards.Count);
+                player.DealCard(cards[index]);
+                cards.RemoveAt(index);
             }
         }
 
-        private Card GenerateCard()
+        public void PrintDeck()
         {
-            int number = Game.rand.Next(4);
-            switch (number)
+            foreach (Card card in cards)
             {
-                case 0:
-                    return new RedCard();
-                case 1:
-                    return new BlueCard();
-                case 2:
-                    return new GreenCard();
-                case 3:
-                    return new YellowCard();
-                default:
-                    throw new Exception("Generation of card went wrong. (Switch)");
+                Console.WriteLine(card.CardName);
+            }
+        }
+
+        private void GenerateDeck(int cardId = 0, int value = 1)
+        {
+            if (value > 8)
+            {
+                value = 1;
+                cardId++;
             }
 
-            throw new Exception("Generation of card went wrong and returned nothing.");
+            Card card = NewCard(cardId, value);
+            if (card != null)
+            {
+                cards.Add(card);
+                GenerateDeck(cardId, value+1);
+            }
+        }
+
+        private Card NewCard(int cardId, int value)
+        {
+            switch (cardId)
+            {
+                case 0:
+                    return new RedCard(value);
+                case 1:
+                    return new BlueCard(value);
+                case 2:
+                    return new GreenCard(value);
+                case 3:
+                    return new YellowCard(value);
+                default:
+                    return null;
+            }
         }
     }
 }

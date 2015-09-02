@@ -26,23 +26,17 @@ namespace CardGame
 
     public abstract class Card : ICard
     {
-        private int cardValue = 1;
         protected int modifier = 1;
 
-        public Card()
+        public Card(int cardValue = 1)
         {
-            cardValue = Game.rand.Next(1, 9); // Can be numbers 1-8, 9 is exclusive.
+            Number = cardValue; // Can be numbers 1-8, 9 is exclusive.
         }
 
-        public int Number
-        {
-            get { return cardValue; }
-            set { cardValue = value; }
-        }
-
+        public int Number { get; set; }
         public int Value
         {
-            get { return cardValue * modifier; }
+            get { return Number * modifier; }
         }
 
         public abstract string CardName { get; }
@@ -50,6 +44,8 @@ namespace CardGame
 
     public class RedCard : Card
     {
+        public RedCard(int value) : base(value) { }
+        
         public override string CardName
         {
             get { return "Red " + Number.ToString(); }
@@ -58,7 +54,7 @@ namespace CardGame
 
     public class BlueCard : Card
     {
-        public BlueCard() { modifier = 2; }
+        public BlueCard(int value) : base(value) { modifier = 2; }
 
         public override string CardName
         {
@@ -68,7 +64,7 @@ namespace CardGame
 
     public class GreenCard : Card
     {
-        public GreenCard() { modifier = 3; }
+        public GreenCard(int value): base(value) { modifier = 3; }
 
         public override string CardName
         {
@@ -78,7 +74,7 @@ namespace CardGame
 
     public class YellowCard : Card
     {
-        public YellowCard() { modifier = 4; }
+        public YellowCard(int value) : base(value) { modifier = 4; }
 
         public override string CardName
         {
