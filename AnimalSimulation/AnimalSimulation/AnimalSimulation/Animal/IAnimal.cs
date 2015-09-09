@@ -11,7 +11,7 @@ namespace AnimalSimulation
         string Name { get; }
         int Weight { get; }
         bool Alive { get; }
-        int Health { get; }
+        int Energy { get; }
 
         /* Methods */
         int[] GetPosition();

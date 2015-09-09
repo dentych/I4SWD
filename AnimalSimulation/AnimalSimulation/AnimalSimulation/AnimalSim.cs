@@ -8,6 +8,6 @@ namespace AnimalSimulation
 {
     public class AnimalSim
     {
-        public static Random rand = new Random();
+        
     }
 }
