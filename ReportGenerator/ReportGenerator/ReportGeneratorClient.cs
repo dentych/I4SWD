@@ -13,16 +13,8 @@ namespace ReportGenerator
             db.AddEmployee(new Employee("Berit", 2000));
             db.AddEmployee(new Employee("Christel", 1000));
 
-            var reportGenerator = new ReportGenerator(db);
+            var reportGenerator = new ReportGenerator(db, new ReportFormatSalaryFirst(), new ReportGetEmployees(db));
 
-            // Create a default (name-first) report
-            reportGenerator.CompileReport();
-
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            // Create a salary-first report
-            reportGenerator.SetOutputFormat(ReportOutputFormatType.SalaryFirst);
             reportGenerator.CompileReport();
         }
     }

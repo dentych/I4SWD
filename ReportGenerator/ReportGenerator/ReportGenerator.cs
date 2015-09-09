@@ -12,61 +12,27 @@ namespace ReportGenerator
     internal class ReportGenerator
     {
         private readonly EmployeeDB _employeeDb;
-        private ReportOutputFormatType _currentOutputFormat;
+        private ReportFormatEmployees _currentOutputFormat;
+        private IDBHandler dbhandler;
 
 
-        public ReportGenerator(EmployeeDB employeeDb)
+        public ReportGenerator(EmployeeDB employeeDb, ReportFormatEmployees format, IDBHandler dbhandler)
         {
             if (employeeDb == null) throw new ArgumentNullException("employeeDb");
-            _currentOutputFormat = ReportOutputFormatType.NameFirst;
+            _currentOutputFormat = format;
             _employeeDb = employeeDb;
+            this.dbhandler = dbhandler;
         }
 
 
         public void CompileReport()
         {
-            var employees = new List<Employee>();
-            Employee employee;
+            List<Employee> employees = dbhandler.GetEmployees();
 
-            _employeeDb.Reset();
-
-            // Get all employees
-            while ((employee = _employeeDb.GetNextEmployee()) != null)
+            foreach (var employee in employees)
             {
-                employees.Add(employee);
+                _currentOutputFormat.Print(employee);
             }
-
-            // All employees collected - let's output them
-            switch (_currentOutputFormat)
-            {
-                case ReportOutputFormatType.NameFirst:
-                    Console.WriteLine("Name-first report");
-                    foreach (var e in employees)
-                    {
-                        Console.WriteLine("------------------");
-                        Console.WriteLine("Name: {0}", e.Name);
-                        Console.WriteLine("Salary: {0}", e.Salary);
-                        Console.WriteLine("------------------");
-                    }
-                    break;
-
-                case ReportOutputFormatType.SalaryFirst:
-                    Console.WriteLine("Salary-first report");
-                    foreach (var e in employees)
-                    {
-                        Console.WriteLine("------------------");
-                        Console.WriteLine("Salary: {0}", e.Salary);
-                        Console.WriteLine("Name: {0}", e.Name);
-                        Console.WriteLine("------------------");
-                    }
-                    break;
-            }
-        }
-
-
-        public void SetOutputFormat(ReportOutputFormatType format)
-        {
-            _currentOutputFormat = format;
         }
     }
 }
